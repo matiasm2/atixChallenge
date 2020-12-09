@@ -31,3 +31,40 @@ Given the following code, which represents an Argentinian Bank account, please a
 
 ------------
 
+## 3. SQL and DBS
+Given the following tables (linked by idUsuario field):
+
+
+| Usuario |   |
+| :------------: | :------------: |
+| id  | integer  |
+| username  | varchar(255)  |
+| password  | varchar(255)  |
+
+| Persona |   |
+| :------------: | :------------: |
+| id  | integer  |
+| idUsuario  | integer  |
+| nombre  | varchar(255)  |
+|apellido|varchar(255)|
+|fechaNac|date|
+
+
+Write a standard SQL query such that:
+
+a.	Returns the users whose name starts with “Jorg”
+
+~~~mysql
+SELECT * FROM Usuario u
+INNER JOIN Persona p ON u.id = p.idUsuario
+WHERE p.nombre LIKE 'Jorg%';
+~~~
+
+b.	Return the months of the year where the amount of users who were born is bigger than 10.
+* you can assume that there is a function called MONTH that returns the month of the year for a given date.
+~~~mysql
+SELECT MONTH(p.fechaNac) FROM Usuario u
+INNER JOIN Persona p ON u.id = p.idUsuario
+GROUP BY MONTH(p.fechaNac) 
+HAVING count(MONTH(p.fechaNac) ) > 10;
+~~~
